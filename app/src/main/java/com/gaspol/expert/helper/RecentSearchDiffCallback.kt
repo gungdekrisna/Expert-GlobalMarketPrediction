@@ -1,7 +1,7 @@
 package com.gaspol.expert.helper
 
 import androidx.recyclerview.widget.DiffUtil
-import com.gaspol.expert.data.local.RecentSearchEntity
+import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 
 class RecentSearchDiffCallback(private val mOldRecentSearchList: List<RecentSearchEntity>, private val mNewRecentSearchList: List<RecentSearchEntity>): DiffUtil.Callback() {
     override fun getOldListSize(): Int {

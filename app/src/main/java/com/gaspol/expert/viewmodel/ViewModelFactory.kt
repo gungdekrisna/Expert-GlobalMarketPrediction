@@ -1,31 +1,42 @@
 package com.gaspol.expert.viewmodel
 
-import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.gaspol.expert.di.Injection
+import com.gaspol.expert.domain.usecase.ExpertUseCase
+import com.gaspol.expert.ui.country.CountryViewModel
 import com.gaspol.expert.ui.home.HomeViewModel
 
-class ViewModelFactory private constructor(private val application: Application) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory private constructor(private val expertUseCase: ExpertUseCase) : ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
-        private var INSTANCE: ViewModelFactory? = null
-        @JvmStatic
-        fun getInstance(application: Application): ViewModelFactory {
-            if (INSTANCE == null) {
-                synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(application)
-                }
+        private var instance: ViewModelFactory? = null
+
+        fun getInstance(context: Context): ViewModelFactory =
+            instance ?: synchronized(this) {
+                instance ?: ViewModelFactory(
+                    Injection.provideExpertUseCase(context)
+                )
             }
-            return INSTANCE as ViewModelFactory
-        }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(application) as T
-        } /*else if (modelClass.isAssignableFrom(NoteAddUpdateViewModel::class.java)) {
-            return NoteAddUpdateViewModel(mApplication) as T
-        }*/
-        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+        return when {
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                HomeViewModel(expertUseCase) as T
+            }
+            modelClass.isAssignableFrom(CountryViewModel::class.java) -> {
+                CountryViewModel(expertUseCase) as T
+            }
+            /*modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
+                FavoriteViewModel(tourismUseCase) as T
+            }
+            modelClass.isAssignableFrom(DetailTourismViewModel::class.java) -> {
+                DetailTourismViewModel(tourismUseCase) as T
+            }*/
+            else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
+        }
     }
 }

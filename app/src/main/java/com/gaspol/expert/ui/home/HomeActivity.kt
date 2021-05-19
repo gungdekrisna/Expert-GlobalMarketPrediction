@@ -1,14 +1,16 @@
 package com.gaspol.expert.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gaspol.expert.data.local.RecentSearchEntity
-import com.gaspol.expert.data.remote.CommodityEntity
+import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
+import com.gaspol.expert.data.source.remote.CommodityEntity
 import com.gaspol.expert.databinding.ActivityHomeBinding
+import com.gaspol.expert.ui.country.CountryActivity
 import com.gaspol.expert.viewmodel.ViewModelFactory
 
 class HomeActivity : AppCompatActivity() {
@@ -18,7 +20,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var commodityAdapter: CommodityAdapter
 
     private var recentSearchEntity = RecentSearchEntity()
-    private var recentSearchPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,25 +37,10 @@ class HomeActivity : AppCompatActivity() {
                 recentSearchQuery.text = query
             }
             viewModel.insert(recentSearchEntity as RecentSearchEntity)
+
+            val intent = Intent(this, CountryActivity::class.java)
+            startActivity(intent)
         }
-
-        //binding.svCommoditySearch.queryHint = resources.getString(R.string.commodity_search_hint)
-        /*binding.svCommoditySearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                Toast.makeText(this@HomeActivity, query, Toast.LENGTH_SHORT).show()
-                if (query.isNotEmpty()){
-                    recentSearchEntity.let { recentSearchQuery ->
-                        recentSearchQuery.text = query
-                    }
-                    viewModel.insert(recentSearchEntity as RecentSearchEntity)
-                }
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })*/
 
         recentSearchAdapter = RecentSearchAdapter()
 
@@ -86,7 +72,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val recentSearchObserver = Observer<List<RecentSearchEntity>> { recentSearchList ->
         if (recentSearchList != null) {
-            recentSearchAdapter.setRecentSearch(recentSearchList)
+            recentSearchAdapter.setRecentSearch(recentSearchList.asReversed())
         }
     }
 }

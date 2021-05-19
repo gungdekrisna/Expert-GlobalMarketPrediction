@@ -1,24 +1,20 @@
 package com.gaspol.expert.ui.home
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.gaspol.expert.data.local.RecentSearchEntity
-import com.gaspol.expert.data.remote.CommodityEntity
-import com.gaspol.expert.data.repository.ExpertRepository
+import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
+import com.gaspol.expert.data.source.remote.CommodityEntity
+import com.gaspol.expert.domain.usecase.ExpertUseCase
 import com.gaspol.expert.utils.DataDummy
 
-class HomeViewModel(application: Application) : ViewModel() {
-    private val expertRepository: ExpertRepository = ExpertRepository(application)
-    // fun getRecentSearch(): List<RecentSearchEntity> = DataDummy.generateDummyRecentSearch()
-
-    fun getRecentSearch(): LiveData<List<RecentSearchEntity>> = expertRepository.getAll()
+class HomeViewModel(private val expertUseCase: ExpertUseCase) : ViewModel() {
+    fun getRecentSearch(): LiveData<List<RecentSearchEntity>> = expertUseCase.getRecentSearch()
 
     fun insert(recentSearch: RecentSearchEntity){
-        expertRepository.insert(recentSearch)
+        expertUseCase.insert(recentSearch)
     }
     fun delete(recentSearch: RecentSearchEntity){
-        expertRepository.delete(recentSearch)
+        expertUseCase.delete(recentSearch)
     }
 
     fun getCommodities(): List<CommodityEntity> = DataDummy.generateDummyCommodity()

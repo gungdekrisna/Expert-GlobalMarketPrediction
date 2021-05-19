@@ -26,7 +26,19 @@ task clean(type: Delete) {
 }
 
 ext {
+    // UI
     glideVersion = '4.11.0'
+
+    // Room
     roomVersion = '2.2.3'
     roomRuntimeVersion = '2.2.5'
+
+    // Retrofit
+    ext.retrofit_version = "2.9.0"
+    ext.logging_interceptor_version = '4.9.0'
+
+    // RX
+    ext.rxjava_version = "2.2.19"
+    ext.rxandroid_version = "2.1.1"
+    ext.lifecycle_version = "2.2.0"
 }

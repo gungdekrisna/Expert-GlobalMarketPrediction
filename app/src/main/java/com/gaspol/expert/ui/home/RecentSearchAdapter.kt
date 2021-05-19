@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.gaspol.expert.data.local.RecentSearchEntity
+import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.databinding.RecentSearchItemBinding
 import com.gaspol.expert.helper.RecentSearchDiffCallback
 
@@ -35,6 +35,7 @@ class RecentSearchAdapter : RecyclerView.Adapter<RecentSearchAdapter.RecentSearc
     ) {
         val recentSearch = recentSearchList[position]
         holder.bind(recentSearch)
+        holder.itemView.setOnClickListener{onItemClickCallback.onItemClicked(recentSearchList[holder.adapterPosition])}
     }
 
     override fun getItemCount(): Int = recentSearchList.size
@@ -54,6 +55,6 @@ class RecentSearchAdapter : RecyclerView.Adapter<RecentSearchAdapter.RecentSearc
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data:RecentSearchEntity)
+        fun onItemClicked(data: RecentSearchEntity)
     }
 }

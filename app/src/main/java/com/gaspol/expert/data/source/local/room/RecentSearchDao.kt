@@ -1,7 +1,8 @@
-package com.gaspol.expert.data.local
+package com.gaspol.expert.data.source.local.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 
 @Dao
 interface RecentSearchDao {

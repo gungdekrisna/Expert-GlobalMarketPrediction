@@ -6,12 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.gaspol.expert.R
-import com.gaspol.expert.data.remote.CommodityEntity
+import com.gaspol.expert.data.source.remote.CommodityEntity
 import com.gaspol.expert.databinding.CommodityItemBinding
 
 class CommodityAdapter : RecyclerView.Adapter<CommodityAdapter.CommodityViewHolder>() {
 
     private val commodityList = ArrayList<CommodityEntity>()
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback : OnItemClickCallback){
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     fun setCommodities(commodities: List<CommodityEntity>?){
         if (commodities == null) return
@@ -30,6 +36,7 @@ class CommodityAdapter : RecyclerView.Adapter<CommodityAdapter.CommodityViewHold
     override fun onBindViewHolder(holder: CommodityViewHolder, position: Int) {
         val commodity = commodityList[position]
         holder.bind(commodity)
+        holder.itemView.setOnClickListener{onItemClickCallback.onItemClicked(commodityList[holder.adapterPosition])}
     }
 
     override fun getItemCount(): Int  = commodityList.size
@@ -44,20 +51,8 @@ class CommodityAdapter : RecyclerView.Adapter<CommodityAdapter.CommodityViewHold
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
                     .error(R.drawable.ic_error)
                     .into(ivCommodityImg)
-
-                itemView.setOnClickListener{
-                    /*val intent = Intent(itemView.context, DetailFilmActivity::class.java)
-                    intent.putExtra(DetailFilmActivity.EXTRA_FILM, film.id)
-                    itemView.context.startActivity(intent)*/
-                }
             }
         }
-    }
-
-    private lateinit var onItemClickCallback: OnItemClickCallback
-
-    fun setOnItemClickCallback(onItemClickCallback : OnItemClickCallback){
-        this.onItemClickCallback = onItemClickCallback
     }
 
     interface OnItemClickCallback {

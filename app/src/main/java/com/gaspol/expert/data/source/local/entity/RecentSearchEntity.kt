@@ -1,4 +1,4 @@
-package com.gaspol.expert.data.local
+package com.gaspol.expert.data.source.local.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

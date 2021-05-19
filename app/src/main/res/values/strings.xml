@@ -3,4 +3,5 @@
     <string name="main_search_title">Search Commodities</string>
     <string name="commodity_list_title">Highlight Commodities</string>
     <string name="commodity_search_hint">Insert commodity name</string>
+    <string name="select_country_title">Select Country</string>
 </resources>

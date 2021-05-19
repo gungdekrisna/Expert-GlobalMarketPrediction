@@ -1,4 +1,4 @@
-package com.gaspol.expert.data.remote
+package com.gaspol.expert.data.source.remote
 
 data class CommodityEntity (
     val id: Int = 0,

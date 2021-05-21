@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.data.source.remote.CommodityEntity
 import com.gaspol.expert.databinding.ActivityHomeBinding
-import com.gaspol.expert.ui.country.CountryActivity
+import com.gaspol.expert.detail.DetailActivity
 import com.gaspol.expert.viewmodel.ViewModelFactory
 
 class HomeActivity : AppCompatActivity() {
@@ -38,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
             }
             viewModel.insert(recentSearchEntity as RecentSearchEntity)
 
-            val intent = Intent(this, CountryActivity::class.java)
+            val intent = Intent(this, DetailActivity::class.java)
             startActivity(intent)
         }
 

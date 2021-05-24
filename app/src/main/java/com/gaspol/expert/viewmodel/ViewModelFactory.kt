@@ -3,6 +3,7 @@ package com.gaspol.expert.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.gaspol.expert.detail.DetailViewModel
 import com.gaspol.expert.di.Injection
 import com.gaspol.expert.domain.usecase.ExpertUseCase
 import com.gaspol.expert.ui.country.CountryViewModel
@@ -29,6 +30,9 @@ class ViewModelFactory private constructor(private val expertUseCase: ExpertUseC
             }
             modelClass.isAssignableFrom(CountryViewModel::class.java) -> {
                 CountryViewModel(expertUseCase) as T
+            }
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                DetailViewModel(expertUseCase) as T
             }
             /*modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
                 FavoriteViewModel(tourismUseCase) as T

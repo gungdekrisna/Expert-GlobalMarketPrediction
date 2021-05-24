@@ -2,7 +2,6 @@ package com.gaspol.expert.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.data.source.remote.CommodityEntity
 import com.gaspol.expert.databinding.ActivityHomeBinding
-import com.gaspol.expert.detail.DetailActivity
+import com.gaspol.expert.ui.country.CountryActivity
 import com.gaspol.expert.viewmodel.ViewModelFactory
 
 class HomeActivity : AppCompatActivity() {
@@ -30,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
         viewModel.getRecentSearch().observe(this, recentSearchObserver)
 
         val commodities = viewModel.getCommodities()
+        val intent = Intent(this, CountryActivity::class.java)
 
         binding.btnCommoditySearch.setOnClickListener {
             val query = binding.etCommoditySearch.text.toString().trim()
@@ -38,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
             }
             viewModel.insert(recentSearchEntity as RecentSearchEntity)
 
-            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra(CountryActivity.EXTRA_COMMODITY, query)
             startActivity(intent)
         }
 
@@ -49,7 +49,8 @@ class HomeActivity : AppCompatActivity() {
 
         recentSearchAdapter.setOnItemClickCallback(object : RecentSearchAdapter.OnItemClickCallback {
             override fun onItemClicked(data: RecentSearchEntity) {
-                Toast.makeText(this@HomeActivity, data.text, Toast.LENGTH_SHORT).show()
+                intent.putExtra(CountryActivity.EXTRA_COMMODITY, data.text)
+                startActivity(intent)
             }
         })
 
@@ -60,7 +61,8 @@ class HomeActivity : AppCompatActivity() {
         binding.rvCommoditiesHighlight.adapter = commodityAdapter
         commodityAdapter.setOnItemClickCallback(object : CommodityAdapter.OnItemClickCallback {
             override fun onItemClicked(data: CommodityEntity) {
-                Toast.makeText(this@HomeActivity, data.name, Toast.LENGTH_SHORT).show()
+                intent.putExtra(CountryActivity.EXTRA_COMMODITY, data.name)
+                startActivity(intent)
             }
         })
     }

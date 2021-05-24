@@ -5,6 +5,10 @@
     <string name="commodity_search_hint">Insert commodity name</string>
     <string name="select_country_title">Select Country</string>
     <string name="country_name">Country Name</string>
-    <string name="commodity_name">Commodity</string>
-    <string name="prediction_result">Prediction Result</string>
+
+    <string name="selected_country">%1$s ></string>
+
+    <string name="commodity_detail">%1$s in 2022</string>
+    <string name="commodity_in_country">%1$s in %2$s</string>
+    <string name="prediction_result">12000</string>
 </resources>

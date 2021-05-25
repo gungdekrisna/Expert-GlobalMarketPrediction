@@ -6,6 +6,9 @@
     <string name="select_country_title">Select Country</string>
     <string name="country_name">Country Name</string>
 
+    <string name="prediction_title">Prediction</string>
+    <string name="history_title">History (Real Data)</string>
+
     <string name="selected_country">%1$s ></string>
 
     <string name="commodity_detail">%1$s in 2022</string>

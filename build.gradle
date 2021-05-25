@@ -35,11 +35,11 @@ ext {
     roomRuntimeVersion = '2.2.5'
 
     // Retrofit
-    ext.retrofit_version = "2.9.0"
-    ext.logging_interceptor_version = '4.9.0'
+    retrofit_version = "2.9.0"
+    logging_interceptor_version = '4.9.0'
 
     // RX
-    ext.rxjava_version = "2.2.19"
-    ext.rxandroid_version = "2.1.1"
-    ext.lifecycle_version = "2.2.0"
+    rxjava_version = "2.2.19"
+    rxandroid_version = "2.1.1"
+    lifecycle_version = "2.2.0"
 }

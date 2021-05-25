@@ -7,6 +7,7 @@ import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.data.source.remote.RemoteDataSource
 import com.gaspol.expert.data.source.remote.network.ApiResponse
 import com.gaspol.expert.domain.model.Country
+import com.gaspol.expert.domain.model.Prediction
 import com.gaspol.expert.domain.repository.IExpertRepository
 import com.gaspol.expert.utils.AppExecutors
 import com.gaspol.expert.utils.DataMapper
@@ -70,6 +71,37 @@ class ExpertRepository private constructor(
                     }
                     is ApiResponse.Error -> {
                         Log.d("getAllCountries", "error")
+                    }
+                }
+            }
+        mCompositeDisposable.add(response)
+
+        return result.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    override fun getPrediction(): Flowable<Resource<Prediction>> {
+        val mCompositeDisposable = CompositeDisposable()
+        val result = PublishSubject.create<Resource<Prediction>>()
+        val apiResponse = remoteDataSource.getPredictions()
+        result.onNext(Resource.Loading(null))
+        val response = apiResponse
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .doOnComplete {
+                mCompositeDisposable.dispose()
+            }
+            .subscribe { response ->
+                when(response){
+                    is ApiResponse.Success -> {
+                        val mapperResult = DataMapper.mapPredictionResponsesToDomain(response.data)
+                        result.onNext(Resource.Success(mapperResult))
+                    }
+                    is ApiResponse.Empty -> {
+                        Log.d("getPrediction", "empty")
+                    }
+                    is ApiResponse.Error -> {
+                        Log.d("getPrediction", "error")
                     }
                 }
             }

@@ -4,6 +4,7 @@ import android.util.Log
 import com.gaspol.expert.data.source.remote.network.ApiResponse
 import com.gaspol.expert.data.source.remote.network.ApiService
 import com.gaspol.expert.data.source.remote.response.CountryResponse
+import com.gaspol.expert.data.source.remote.response.PredictionResponse
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,6 +35,27 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             .subscribe ({ response ->
                 val dataArray = response.results
                 resultData.onNext(if (dataArray.isNotEmpty()) ApiResponse.Success(dataArray) else ApiResponse.Empty)
+            }, { error ->
+                resultData.onNext(ApiResponse.Error(error.message.toString()))
+                Log.e("RemoteDataSource", error.toString())
+            })
+
+        return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    fun getPredictions(): Flowable<ApiResponse<PredictionResponse>> {
+        val resultData = PublishSubject.create<ApiResponse<PredictionResponse>>()
+
+        //get data from remote api
+        val client = apiService.getPredictions()
+
+        client
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .take(1)
+            .subscribe ({ response ->
+                val dataArray = response
+                resultData.onNext(if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty)
             }, { error ->
                 resultData.onNext(ApiResponse.Error(error.message.toString()))
                 Log.e("RemoteDataSource", error.toString())

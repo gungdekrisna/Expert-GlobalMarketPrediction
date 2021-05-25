@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Expert">
-        <activity android:name=".detail.DetailActivity"></activity>
+        <activity android:name="com.gaspol.expert.ui.detail.DetailActivity"></activity>
         <activity android:name=".ui.country.CountryActivity" />
         <activity android:name=".ui.home.HomeActivity">
             <intent-filter>

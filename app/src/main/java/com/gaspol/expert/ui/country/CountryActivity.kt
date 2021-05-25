@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gaspol.expert.R
 import com.gaspol.expert.data.Resource
 import com.gaspol.expert.databinding.ActivityCountryBinding
-import com.gaspol.expert.detail.DetailActivity
+import com.gaspol.expert.ui.detail.DetailActivity
 import com.gaspol.expert.viewmodel.ViewModelFactory
 
 class CountryActivity : AppCompatActivity() {

@@ -15,6 +15,9 @@ import com.gaspol.expert.viewmodel.ViewModelFactory
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 
 class DetailActivity : AppCompatActivity() {
 
@@ -46,7 +49,15 @@ class DetailActivity : AppCompatActivity() {
             .error(R.drawable.ic_error)
             .into(binding.ivFlag)
 
-        viewModel.prediction.observe(this, { prediction ->
+        val jsonObject = JSONObject()
+        jsonObject.put("commodity", commoditySelected)
+        jsonObject.put("country", countrySelected?.name)
+
+        val jsonObjectString = jsonObject.toString()
+
+        val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
+
+        viewModel.prediction(requestBody).observe(this, { prediction ->
             if (prediction != null){
                 when (prediction){
                     is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE

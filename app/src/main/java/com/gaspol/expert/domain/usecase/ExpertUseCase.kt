@@ -6,11 +6,12 @@ import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.domain.model.Country
 import com.gaspol.expert.domain.model.Prediction
 import io.reactivex.Flowable
+import okhttp3.RequestBody
 
 interface ExpertUseCase {
     fun getRecentSearch(): LiveData<List<RecentSearchEntity>>
     fun insert(recentSearch: RecentSearchEntity)
     fun delete(recentSearch: RecentSearchEntity)
     fun getAllCountries(): Flowable<Resource<List<Country>>>
-    fun getPrediction(): Flowable<Resource<Prediction>>
+    fun getPrediction(requestBody: RequestBody): Flowable<Resource<Prediction>>
 }

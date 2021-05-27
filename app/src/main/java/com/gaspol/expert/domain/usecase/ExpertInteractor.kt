@@ -7,6 +7,7 @@ import com.gaspol.expert.domain.model.Country
 import com.gaspol.expert.domain.model.Prediction
 import com.gaspol.expert.domain.repository.IExpertRepository
 import io.reactivex.Flowable
+import okhttp3.RequestBody
 
 class ExpertInteractor(private val expertRepository: IExpertRepository): ExpertUseCase {
     override fun getRecentSearch(): LiveData<List<RecentSearchEntity>> = expertRepository.getAll()
@@ -15,5 +16,5 @@ class ExpertInteractor(private val expertRepository: IExpertRepository): ExpertU
 
     override fun delete(recentSearch: RecentSearchEntity) = expertRepository.delete(recentSearch)
     override fun getAllCountries(): Flowable<Resource<List<Country>>> = expertRepository.getAllCountries()
-    override fun getPrediction(): Flowable<Resource<Prediction>> = expertRepository.getPrediction()
+    override fun getPrediction(requestBody: RequestBody): Flowable<Resource<Prediction>> = expertRepository.getPrediction(requestBody)
 }

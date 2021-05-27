@@ -25,4 +25,14 @@ object ApiConfig {
             .build()
         return retrofit.create(ApiService::class.java)
     }
+
+    fun provideApiServiceGCP(): ApiService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://0cf711ea0067.ngrok.io/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(provideOkHttpClient())
+            .build()
+        return retrofit.create(ApiService::class.java)
+    }
 }

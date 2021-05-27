@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.gaspol.expert.data.source.local.LocalDataSource
 import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.data.source.remote.RemoteDataSource
+import com.gaspol.expert.data.source.remote.RemoteDataSourceGCP
 import com.gaspol.expert.data.source.remote.network.ApiResponse
 import com.gaspol.expert.domain.model.Country
 import com.gaspol.expert.domain.model.Prediction
@@ -17,9 +18,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import okhttp3.RequestBody
 
 class ExpertRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
+    private val remoteDataSourceGCP: RemoteDataSourceGCP,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : IExpertRepository {
@@ -30,11 +33,12 @@ class ExpertRepository private constructor(
 
         fun getInstance(
             remoteData: RemoteDataSource,
+            remoteDataSourceGCP: RemoteDataSourceGCP,
             localData: LocalDataSource,
             appExecutors: AppExecutors
         ): ExpertRepository =
             instance ?: synchronized(this) {
-                instance ?: ExpertRepository(remoteData, localData, appExecutors)
+                instance ?: ExpertRepository(remoteData, remoteDataSourceGCP, localData, appExecutors)
             }
     }
 
@@ -79,10 +83,10 @@ class ExpertRepository private constructor(
         return result.toFlowable(BackpressureStrategy.BUFFER)
     }
 
-    override fun getPrediction(): Flowable<Resource<Prediction>> {
+    override fun getPrediction(requestBody: RequestBody): Flowable<Resource<Prediction>> {
         val mCompositeDisposable = CompositeDisposable()
         val result = PublishSubject.create<Resource<Prediction>>()
-        val apiResponse = remoteDataSource.getPredictions()
+        val apiResponse = remoteDataSourceGCP.getPredictions(requestBody)
         result.onNext(Resource.Loading(null))
         val response = apiResponse
             .subscribeOn(Schedulers.io())

@@ -14,5 +14,8 @@ data class PredictionResponse(
 	val quantity: List<Int>,
 
 	@field:SerializedName("Year_pred")
-	val yearPredict: List<String>
+	val yearPredict: List<String>,
+
+	@field:SerializedName("Quantity_name")
+	val quantityName: String
 )

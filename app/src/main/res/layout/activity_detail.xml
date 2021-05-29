@@ -6,42 +6,54 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/main_background"
-    android:padding="12dp"
+    android:padding="16dp"
     tools:context=".ui.detail.DetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_flag"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_commodity_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/prediction_head"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_marginStart="10dp"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_flag"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/commodity_detail" />
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/iv_flag"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tv_commodity_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="10dp"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@+id/iv_flag"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/commodity_name" />
 
-        <TextView
-            android:id="@+id/tv_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:textSize="25sp"
-            app:layout_constraintStart_toEndOf="@+id/iv_flag"
-            app:layout_constraintTop_toBottomOf="@+id/tv_commodity_name"
-            android:text="@string/prediction_result" />
+                <TextView
+                    android:id="@+id/tv_country_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grey"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toEndOf="@+id/iv_flag"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_commodity_name"
+                    android:text="@string/country_name" />
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_prediction_title"
@@ -51,7 +63,7 @@
             android:layout_marginTop="20dp"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_flag"
+            app:layout_constraintTop_toBottomOf="@+id/prediction_head"
             android:text="@string/prediction_title" />
 
         <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
@@ -62,6 +74,19 @@
             app:layout_constraintTop_toBottomOf="@id/tv_prediction_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_error1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:text="@string/something_wrong"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_prediction_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_history_title"
@@ -83,20 +108,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyle"
+        <TextView
+            android:id="@+id/tv_error2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:text="@string/something_wrong"
             android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_history_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="18sp" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:shimmer_auto_start="true">
+            <include layout="@layout/activity_detail_placeholder" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

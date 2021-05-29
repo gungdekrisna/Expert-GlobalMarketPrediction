@@ -12,5 +12,4 @@ class DetailViewModel(private val expertUseCase: ExpertUseCase) : ViewModel() {
     fun prediction(requestBody: RequestBody) : LiveData<Resource<Prediction>> {
         return LiveDataReactiveStreams.fromPublisher(expertUseCase.getPrediction(requestBody))
     }
-    // val prediction = LiveDataReactiveStreams.fromPublisher(expertUseCase.getPrediction())
 }

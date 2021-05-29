@@ -24,13 +24,15 @@ object DataMapper {
             year = input.year,
             quantityPredict = input.quantityPredict,
             quantity = input.quantity,
-            yearPredict = input.yearPredict
+            yearPredict = input.yearPredict,
+            quantityName = input.quantityName
         )
 
     fun mapPredictionDomainToResponses(input: Prediction) = PredictionResponse(
         year = input.year,
         quantityPredict = input.quantityPredict,
         quantity = input.quantity,
-        yearPredict = input.yearPredict
+        yearPredict = input.yearPredict,
+        quantityName = input.quantityName
     )
 }

@@ -8,5 +8,6 @@ class Prediction (
     val year: List<String>,
     val quantityPredict: List<Int>,
     val quantity: List<Int>,
-    val yearPredict: List<String>
+    val yearPredict: List<String>,
+    val quantityName: String
 ): Parcelable

@@ -2,6 +2,8 @@
 <resources>
     <color name="main_background">#121212</color>
     <color name="upper_background">#1D1D1D</color>
+    <color name="placeholder_background">#7F000000</color>
+    <color name="placeholder_color">#DDDDDD</color>
     <color name="grey">#656565</color>
     <color name="blue_accent">#3E65F9</color>
     <color name="pink_accent">#FC066C</color>

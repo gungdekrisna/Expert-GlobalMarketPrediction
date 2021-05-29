@@ -41,7 +41,8 @@ class DetailActivity : AppCompatActivity() {
 
         commoditySelected = intent.getStringExtra(DetailActivity.EXTRA_COMMODITY)
         countrySelected = intent.getParcelableExtra<Country>(EXTRA_COUNTRY)
-        binding.tvCommodityName.text = getString(R.string.commodity_detail, commoditySelected)
+        binding.tvCommodityName.text = commoditySelected
+        binding.tvCountryName.text = countrySelected?.name
 
         Glide.with(this@DetailActivity)
             .load("https://www.countryflags.io/${countrySelected?.code}/flat/64.png")
@@ -65,6 +66,10 @@ class DetailActivity : AppCompatActivity() {
                         binding.progressBar.visibility = View.GONE
                         populateChart(prediction.data)
                     }
+                    is Resource.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.tvError1.text = prediction.message ?: getString(R.string.something_wrong)
+                    }
                 }
             }
         })
@@ -80,7 +85,7 @@ class DetailActivity : AppCompatActivity() {
             .categories(prediction!!.yearPredict.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
-                    .name("Commodity Quantity")
+                    .name(prediction.quantityName)
                     .data(prediction!!.quantityPredict.toTypedArray())
             )
             )
@@ -95,7 +100,7 @@ class DetailActivity : AppCompatActivity() {
             .categories(prediction!!.year.toTypedArray())
             .series(arrayOf(
                 AASeriesElement()
-                    .name("Commodity Quantity")
+                    .name(prediction.quantityName)
                     .data(prediction!!.quantity.toTypedArray())
             )
             )

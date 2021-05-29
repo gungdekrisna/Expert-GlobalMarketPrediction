@@ -74,7 +74,7 @@ class ExpertRepository private constructor(
                         Log.d("getAllCountries", "empty")
                     }
                     is ApiResponse.Error -> {
-                        Log.d("getAllCountries", "error")
+                        Resource.Error<Any>(response.errorMessage)
                     }
                 }
             }

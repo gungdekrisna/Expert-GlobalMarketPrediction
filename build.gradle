@@ -3,7 +3,7 @@ buildscript {
     ext.kotlin_version = "1.4.31"
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
@@ -18,7 +18,7 @@ allprojects {
     repositories {
         maven { url 'https://jitpack.io' }
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
@@ -29,6 +29,7 @@ task clean(type: Delete) {
 ext {
     // UI
     glideVersion = '4.11.0'
+    shimmer_version = '0.5.0'
 
     // Room
     roomVersion = '2.2.3'

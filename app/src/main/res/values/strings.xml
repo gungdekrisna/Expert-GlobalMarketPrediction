@@ -11,7 +11,8 @@
 
     <string name="selected_country">%1$s ></string>
 
-    <string name="commodity_detail">%1$s in 2022</string>
+    <string name="commodity_name">Commodity Name</string>
     <string name="commodity_in_country">%1$s in %2$s</string>
-    <string name="prediction_result">12000</string>
+    <string name="prediction_result">0</string>
+    <string name="something_wrong">Oops.. something went wrong</string>
 </resources>

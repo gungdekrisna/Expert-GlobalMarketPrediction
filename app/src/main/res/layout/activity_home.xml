@@ -24,7 +24,8 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/tv_search_commodity_title">
-        <EditText
+
+        <AutoCompleteTextView
             android:id="@+id/et_commodity_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,7 +34,7 @@
             android:padding="12dp"
             android:textColor="@color/white"
             android:hint="@string/commodity_search_hint"
-            android:background="@color/upper_background"/>
+            android:background="@color/upper_background" />
 
         <ImageView
             android:id="@+id/btn_commodity_search"
@@ -45,13 +46,6 @@
             android:src="@drawable/ic_baseline_search_24"
             android:background="@drawable/button" />
     </LinearLayout>
-
-    <!--<androidx.appcompat.widget.SearchView
-        android:id="@+id/sv_commodity_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/lyCustomSearch"/>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recent_search"

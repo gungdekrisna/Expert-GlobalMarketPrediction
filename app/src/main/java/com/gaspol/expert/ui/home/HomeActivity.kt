@@ -2,15 +2,21 @@ package com.gaspol.expert.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gaspol.expert.R
 import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.data.source.remote.CommodityEntity
 import com.gaspol.expert.databinding.ActivityHomeBinding
 import com.gaspol.expert.ui.country.CountryActivity
 import com.gaspol.expert.viewmodel.ViewModelFactory
+import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {
 
@@ -30,6 +36,28 @@ class HomeActivity : AppCompatActivity() {
 
         val commodities = viewModel.getCommodities()
         val intent = Intent(this, CountryActivity::class.java)
+
+        binding.etCommoditySearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                lifecycleScope.launch {
+                    viewModel.queryChannel.send(s.toString())
+                }
+            }
+        })
+
+        viewModel.searchResult.observe(this, Observer { commodityItem ->
+            val commodityName = arrayListOf<String?>()
+            commodityItem?.map {
+                commodityName.add(it?.name)
+            }
+            val adapter = ArrayAdapter(this@HomeActivity, R.layout.auto_correct_dialog, commodityName)
+            adapter.notifyDataSetChanged()
+            binding.etCommoditySearch.setAdapter(adapter)
+        })
 
         binding.btnCommoditySearch.setOnClickListener {
             val query = binding.etCommoditySearch.text.toString().trim()

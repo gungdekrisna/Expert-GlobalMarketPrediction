@@ -2,6 +2,7 @@ package com.gaspol.expert.ui.country
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +25,8 @@ class CountryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCountryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.title = Html.fromHtml("<font color=\"#3E65F9\">" + "<b>" + getString(R.string.app_name) + "<b>" + "</font>")
 
         val commoditySelected = intent.getStringExtra(EXTRA_COMMODITY)
         binding.tvSelectedCommodity.text = getString(R.string.selected_country, commoditySelected)

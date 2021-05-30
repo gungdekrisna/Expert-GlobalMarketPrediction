@@ -7,6 +7,7 @@ import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.data.source.remote.RemoteDataSource
 import com.gaspol.expert.data.source.remote.RemoteDataSourceGCP
 import com.gaspol.expert.data.source.remote.network.ApiResponse
+import com.gaspol.expert.domain.model.CommodityItem
 import com.gaspol.expert.domain.model.Country
 import com.gaspol.expert.domain.model.Prediction
 import com.gaspol.expert.domain.repository.IExpertRepository
@@ -112,5 +113,10 @@ class ExpertRepository private constructor(
         mCompositeDisposable.add(response)
 
         return result.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    override suspend fun searchCommodity(search: String): List<CommodityItem>? {
+        val result = remoteDataSource.searchCommodity(search)
+        return DataMapper.mapCommodityResponsesToDomain(result.result)
     }
 }

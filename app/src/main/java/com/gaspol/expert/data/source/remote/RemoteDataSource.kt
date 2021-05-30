@@ -4,6 +4,7 @@ import android.util.Log
 import com.gaspol.expert.data.source.remote.network.ApiResponse
 import com.gaspol.expert.data.source.remote.network.ApiService
 import com.gaspol.expert.data.source.remote.response.CountryResponse
+import com.gaspol.expert.data.source.remote.response.ResponseCommodity
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -40,5 +41,9 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
             })
 
         return resultData.toFlowable(BackpressureStrategy.BUFFER)
+    }
+
+    suspend fun searchCommodity(search: String): ResponseCommodity {
+        return apiService.searchCommodity(search)
     }
 }

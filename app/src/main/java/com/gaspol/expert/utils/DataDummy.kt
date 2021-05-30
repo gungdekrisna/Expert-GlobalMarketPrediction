@@ -1,65 +1,39 @@
 package com.gaspol.expert.utils
 
-import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.data.source.remote.CommodityEntity
 
 object DataDummy {
-    fun generateDummyRecentSearch(): List<RecentSearchEntity>{
-        val recentSearch = ArrayList<RecentSearchEntity>()
-
-        recentSearch.add(
-            RecentSearchEntity(1,
-            "Fowls, live domestic > 185 grams")
-        )
-        recentSearch.add(
-            RecentSearchEntity(1,
-            "Sheep, live")
-        )
-        recentSearch.add(
-            RecentSearchEntity(1,
-            "Goats, live")
-        )
-
-        return recentSearch
-    }
-
     fun generateDummyCommodity(): List<CommodityEntity>{
         val commodity = ArrayList<CommodityEntity>()
 
         commodity.add(
             CommodityEntity(1,
-            "Horses, live pure-bred breeding",
-            "https://petkeen.com/wp-content/uploads/2021/02/three-horses.jpg")
+            "Apples, fresh",
+            "https://post.healthline.com/wp-content/uploads/2020/09/Do_Apples_Affect_Diabetes_and_Blood_Sugar_Levels-732x549-thumbnail-1-732x549.jpg")
         )
 
         commodity.add(
             CommodityEntity(2,
-            "Poultry, live except domestic fowls, < 185 grams",
-            "https://www.wattagnet.com/ext/resources/Images-by-month-year/18_10/feed/broiler-breeder-feathering-improvements.jpg")
+            "Coffee, not roasted, not decaffeinated",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Roasted_coffee_beans.jpg/1200px-Roasted_coffee_beans.jpg")
         )
 
         commodity.add(
             CommodityEntity(3,
-            "Sheep, live",
-            "https://www.aces.edu/wp-content/uploads/2018/11/iStock-182344013.jpg")
+            "Potatoes, fresh or chilled except seed",
+            "https://www.deliaonline.com/sites/default/files/quick_media/ingredient-soup-potatoes-alt.jpg")
         )
 
         commodity.add(
             CommodityEntity(4,
-            "Horses, live pure-bred breeding",
-            "https://petkeen.com/wp-content/uploads/2021/02/three-horses.jpg")
+            "Shrimps and prawns, prepared or preserved",
+            "https://www.aquaculturealliance.org/wp-content/uploads/2020/04/ARANGUREN-cooked-shrimp-Pic-0.jpg")
         )
 
         commodity.add(
             CommodityEntity(5,
-            "Poultry, live except domestic fowls, < 185 grams",
-            "https://www.wattagnet.com/ext/resources/Images-by-month-year/18_10/feed/broiler-breeder-feathering-improvements.jpg")
-        )
-
-        commodity.add(
-            CommodityEntity(6,
-            "Sheep, live",
-            "https://www.aces.edu/wp-content/uploads/2018/11/iStock-182344013.jpg")
+            "Tomatoes, fresh or chilled",
+            "https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg")
         )
 
         return commodity

@@ -3,6 +3,7 @@ package com.gaspol.expert.domain.repository
 import androidx.lifecycle.LiveData
 import com.gaspol.expert.data.Resource
 import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
+import com.gaspol.expert.domain.model.CommodityItem
 import com.gaspol.expert.domain.model.Country
 import com.gaspol.expert.domain.model.Prediction
 import io.reactivex.Flowable
@@ -14,4 +15,5 @@ interface IExpertRepository {
     fun delete(recentSearchEntity: RecentSearchEntity)
     fun getAllCountries(): Flowable<Resource<List<Country>>>
     fun getPrediction(requestBody: RequestBody): Flowable<Resource<Prediction>>
+    suspend fun searchCommodity(search: String): List<CommodityItem>?
 }

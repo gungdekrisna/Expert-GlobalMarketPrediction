@@ -3,6 +3,7 @@ package com.gaspol.expert.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var recentSearchAdapter : RecentSearchAdapter
     private lateinit var commodityAdapter: CommodityAdapter
 
+    private lateinit var viewModel : HomeViewModel
+
     private var recentSearchEntity = RecentSearchEntity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +34,9 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val viewModel = obtainViewModel(this@HomeActivity)
+        supportActionBar?.title = Html.fromHtml("<font color=\"#3E65F9\">" + "<b>" + getString(R.string.app_name) + "<b>" + "</font>")
+
+        viewModel = obtainViewModel(this@HomeActivity)
         viewModel.getRecentSearch().observe(this, recentSearchObserver)
 
         val commodities = viewModel.getCommodities()
@@ -103,6 +108,9 @@ class HomeActivity : AppCompatActivity() {
     private val recentSearchObserver = Observer<List<RecentSearchEntity>> { recentSearchList ->
         if (recentSearchList != null) {
             recentSearchAdapter.setRecentSearch(recentSearchList.asReversed())
+            if (recentSearchList.size > 5){
+                viewModel.delete(recentSearchList[0])
+            }
         }
     }
 }

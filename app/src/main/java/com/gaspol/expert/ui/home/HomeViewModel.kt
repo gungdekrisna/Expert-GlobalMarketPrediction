@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.data.source.remote.CommodityEntity
-import com.gaspol.expert.data.source.remote.network.ApiConfig
 import com.gaspol.expert.domain.usecase.ExpertUseCase
 import com.gaspol.expert.utils.DataDummy
 import kotlinx.coroutines.channels.BroadcastChannel
@@ -33,7 +32,7 @@ class HomeViewModel(private val expertUseCase: ExpertUseCase) : ViewModel() {
             it.trim().isNotEmpty()
         }
         .mapLatest {
-            ApiConfig.provideApiService().searchCommodity(it).result
+            expertUseCase.searchCommodity(it)
         }
         .asLiveData()
 }

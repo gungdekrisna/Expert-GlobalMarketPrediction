@@ -2,6 +2,8 @@ package com.gaspol.expert.utils
 
 import com.gaspol.expert.data.source.remote.response.CountryResponse
 import com.gaspol.expert.data.source.remote.response.PredictionResponse
+import com.gaspol.expert.data.source.remote.response.ResultCommodityItem
+import com.gaspol.expert.domain.model.CommodityItem
 import com.gaspol.expert.domain.model.Country
 import com.gaspol.expert.domain.model.Prediction
 
@@ -18,6 +20,13 @@ object DataMapper {
         name = input.name,
         code = input.code
     )
+
+    fun mapCommodityResponsesToDomain(input: List<ResultCommodityItem?>?): List<CommodityItem>? =
+        input?.map {
+            CommodityItem(
+                name = it?.name
+            )
+        }
 
     fun mapPredictionResponsesToDomain(input: PredictionResponse): Prediction =
         Prediction(

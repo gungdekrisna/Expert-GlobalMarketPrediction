@@ -71,7 +71,11 @@ class DetailActivity : AppCompatActivity() {
                     }
                     is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
+                        binding.tvError1.visibility = View.VISIBLE
                         binding.tvError1.text = prediction.message ?: getString(R.string.something_wrong)
+
+                        binding.tvError2.visibility = View.VISIBLE
+                        binding.tvError2.text = prediction.message ?: getString(R.string.something_wrong)
                     }
                 }
             }

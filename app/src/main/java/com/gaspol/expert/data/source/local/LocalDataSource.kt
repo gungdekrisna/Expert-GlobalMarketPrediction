@@ -14,7 +14,9 @@ class LocalDataSource private constructor(private val recentSearchDao: RecentSea
             }
     }
 
-    fun getAll(): LiveData<List<RecentSearchEntity>> = recentSearchDao.getAllRecentSearch()
+    fun getAll(): LiveData<List<RecentSearchEntity>> {
+        return recentSearchDao.getAllRecentSearch()
+    }
 
     fun insert(recentSearchEntity: RecentSearchEntity){
         recentSearchDao.insert(recentSearchEntity)

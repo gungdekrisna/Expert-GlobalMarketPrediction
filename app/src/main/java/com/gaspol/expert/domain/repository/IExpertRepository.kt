@@ -11,8 +11,8 @@ import okhttp3.RequestBody
 
 interface IExpertRepository {
     fun getAll(): LiveData<List<RecentSearchEntity>>
-    fun insert(recentSearchEntity: RecentSearchEntity)
-    fun delete(recentSearchEntity: RecentSearchEntity)
+    fun insert(recentSearch: RecentSearchEntity)
+    fun delete(recentSearch: RecentSearchEntity)
     fun getAllCountries(): Flowable<Resource<List<Country>>>
     fun getPrediction(requestBody: RequestBody): Flowable<Resource<Prediction>>
     suspend fun searchCommodity(search: String): List<CommodityItem>?

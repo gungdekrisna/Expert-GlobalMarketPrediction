@@ -2,6 +2,7 @@ package com.gaspol.expert.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.gaspol.expert.data.source.local.LocalDataSource
 import com.gaspol.expert.data.source.local.entity.RecentSearchEntity
 import com.gaspol.expert.data.source.remote.RemoteDataSource
@@ -10,6 +11,7 @@ import com.gaspol.expert.data.source.remote.network.ApiResponse
 import com.gaspol.expert.domain.model.CommodityItem
 import com.gaspol.expert.domain.model.Country
 import com.gaspol.expert.domain.model.Prediction
+import com.gaspol.expert.domain.model.RecentSearch
 import com.gaspol.expert.domain.repository.IExpertRepository
 import com.gaspol.expert.utils.AppExecutors
 import com.gaspol.expert.utils.DataMapper
@@ -43,14 +45,26 @@ class ExpertRepository private constructor(
             }
     }
 
-    override fun getAll(): LiveData<List<RecentSearchEntity>> = localDataSource.getAll()
-
-    override fun insert(recentSearchEntity: RecentSearchEntity){
-        appExecutors.diskIO().execute { localDataSource.insert(recentSearchEntity) }
+    override fun getAll(): LiveData<List<RecentSearchEntity>> {
+        val liveData = MutableLiveData<List<RecentSearch>>()
+        val allRecentSearch = localDataSource.getAll()
+        val mapper = DataMapper.mapRecentSearchResponsesToDomain(allRecentSearch.value)
+        liveData.postValue(mapper)
+        return allRecentSearch
     }
 
-    override fun delete(recentSearchEntity: RecentSearchEntity){
-        appExecutors.diskIO().execute { localDataSource.delete(recentSearchEntity) }
+    override fun insert(recentSearch: RecentSearchEntity){
+        appExecutors.diskIO().execute {
+            //val mapper = DataMapper.mapRecentSearchDomainToResponses(recentSearch)
+            localDataSource.insert(recentSearch)
+        }
+    }
+
+    override fun delete(recentSearch: RecentSearchEntity){
+        appExecutors.diskIO().execute {
+            //val mapper = DataMapper.mapRecentSearchDomainToResponses(recentSearch)
+            localDataSource.delete(recentSearch)
+        }
     }
 
     override fun getAllCountries(): Flowable<Resource<List<Country>>> {
@@ -75,7 +89,7 @@ class ExpertRepository private constructor(
                         Log.d("getAllCountries", "empty")
                     }
                     is ApiResponse.Error -> {
-                        Resource.Error<Any>(response.errorMessage)
+                        result.onNext(Resource.Error(response.errorMessage))
                     }
                 }
             }
@@ -107,6 +121,7 @@ class ExpertRepository private constructor(
                     }
                     is ApiResponse.Error -> {
                         Log.d("getPrediction", "error")
+                        result.onNext(Resource.Error(response.errorMessage))
                     }
                 }
             }

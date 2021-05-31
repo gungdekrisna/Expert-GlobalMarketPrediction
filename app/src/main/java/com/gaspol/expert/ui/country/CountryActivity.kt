@@ -50,6 +50,11 @@ class CountryActivity : AppCompatActivity() {
                         binding.progressBar.visibility = View.GONE
                         countryAdapter.setData(country.data)
                     }
+                    is Resource.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.tvError1.visibility = View.VISIBLE
+                        binding.tvError1.text = country.message ?: getString(R.string.something_wrong)
+                    }
                 }
             }
         })

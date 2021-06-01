@@ -3,7 +3,7 @@ A mobile application providing export commodity demands prediction in certain co
 
 ## Features
 In this application you can:
-* Search commodity names, you will be guided by an auto correct
+* Search commodity names, you will be guided by an auto-correct
 * Select a country you want to predict
 * 2 chart each contains export commodity demand prediction and history (real data).
 

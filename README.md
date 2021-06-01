@@ -5,10 +5,9 @@ A mobile application providing export commodity demands prediction in certain co
 In this application you can:
 * Search commodity names, you will be guided by an auto-correct
 * Select a country you want to predict
-* 2 chart each contains export commodity demand prediction and commodity import history (real data).
+* Display 2 chart each contains export demand prediction and import history (real data).
 
 ## Getting Started
-
 1.  Pull down the code locally
 2.  Open Android Studio and select 'Open an existing Android Studio Project'
 3.  Navigate to checked out repository

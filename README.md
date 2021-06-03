@@ -1,5 +1,5 @@
 # Expert : Export Commodity Demands Prediction
-A mobile application providing export commodity demands prediction in certain country by <a href="https://github.com/rahilwisdom/Projects">Machine Learning</a> that can be use for market analysis in selling goods. Build with Clean Architecture, Reactive Programming (RX &amp; Coroutine Flow) and Depedency Injection. <br><br>Contain special area chart by <a href="https://github.com/AAChartModel/AAChartCore-Kotlin">AAChartModel</a> and beautiful shimmer loading :D
+A mobile application providing export commodity demands prediction in certain country by <a href="https://github.com/rahilwisdom/Projects">Machine Learning</a> that can be use for market analysis in selling goods. Build with Clean Architecture, Reactive Programming (RX &amp; Coroutine Flow) and Depedency Injection. <br><br>Contain special area chart by <a href="https://github.com/AAChartModel/AAChartCore-Kotlin">AAChartModel</a>, country flags by <a href="https://www.countryflags.io/">CountryFlags.io</a> and beautiful shimmer loading :D
 
 ## Features
 In this application you can:

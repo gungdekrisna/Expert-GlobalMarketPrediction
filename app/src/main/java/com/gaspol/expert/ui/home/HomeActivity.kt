@@ -1,6 +1,9 @@
 package com.gaspol.expert.ui.home
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.text.Editable
 import android.text.Html
@@ -49,7 +52,9 @@ class HomeActivity : AppCompatActivity() {
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 lifecycleScope.launch {
-                    viewModel.queryChannel.send(s.toString())
+                    if (internetCheck(this@HomeActivity) == true) {
+                        viewModel.queryChannel.send(s.toString())
+                    }
                 }
             }
         })
@@ -112,5 +117,12 @@ class HomeActivity : AppCompatActivity() {
                 viewModel.delete(recentSearchList[0])
             }
         }
+    }
+
+    fun internetCheck(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        return isConnected
     }
 }

@@ -18,7 +18,7 @@ object ApiConfig {
 
     fun provideApiService(): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://expert.dalemkrisnayana.web.id/api/")
+            .baseUrl("https://laravel-api-expert-77u2xu7nnq-et.a.run.app/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(provideOkHttpClient())
